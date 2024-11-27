@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+
+package auth;
+
+option go_package = "zinovev.sso.v1;ssov1";//указывает, 
+//в каком Go-пакете будет находиться сгенерированный код после выполнения генерации Protobuf-компилятором (protoc)
+
+service Auth {
+    rpc Register(RegisterRequest) returns (RegisterResponce);
+    rpc Login(LoginRequest) returns (LoginResponce);
+    rpc IsAdmin(IsAdminRequest) returns (IsAdminResponce);
+}
+
+
+message RegisterRequest {
+    string email = 1; //Email of the user
+    string password = 2; //Password of the user
+}
+
+
+message RegisterResponce {
+    int64 user_id = 1;//User ID of the registered user
+}
+
+message LoginRequest {
+    string email = 1; //Email of the user
+    string password = 2; //Password of the user
+    int32 app_id = 3;
+}
+
+message LoginResponce {
+    string token = 1;//Token of the logged in user
+}
+
+message IsAdminRequest {
+    int64 user_id = 1;//User ID of the user
+}
+
+message IsAdminResponce{
+    bool is_admin = 1;
+}
